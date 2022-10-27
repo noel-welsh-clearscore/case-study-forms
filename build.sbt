@@ -9,7 +9,7 @@ ThisBuild / developers := List(
   // your GitHub handle and name
   tlGitHubDev("noelwelsh", "Noel Welsh")
 )
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
 ThisBuild / semanticdbEnabled := true
 ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
@@ -23,7 +23,7 @@ val Scala213 = "2.13.10"
 ThisBuild / crossScalaVersions := Seq(Scala213, "3.1.1")
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
-lazy val root = tlCrossRootProject.aggregate(core)
+lazy val root = tlCrossRootProject.aggregate(core, web)
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .crossType(CrossType.Pure)
@@ -38,6 +38,6 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
-lazy val web = project.in(file("web")).enablePlugins(ScalaJSPlugins)
+lazy val web = project.in(file("web")).enablePlugins(ScalaJSPlugin)
 
 lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
