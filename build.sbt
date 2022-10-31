@@ -40,12 +40,13 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
 
 lazy val web = project
   .in(file("web"))
-  .enablePlugins(ScalaJSPlugin)
   .settings(
+    scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
       "com.raquo" %%% "laminar" % "0.13.1"
     )
   )
   .dependsOn(core.js)
+  .enablePlugins(ScalaJSPlugin)
 
 lazy val docs = project.in(file("site")).enablePlugins(TypelevelSitePlugin)
