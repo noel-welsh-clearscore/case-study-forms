@@ -11,6 +11,51 @@ You have used lots of forms on web sites and mobile apps. What do you think the 
 
 For example, you might say a form is a list of inputs, and input consists of an optional label, an optional description and an optional placeholder. (This is a very simple model. You probably want something a little bit more elaborate.)
 
+Question:
+- Number
+- Text
+- Boolean (Y/N or True/False)
+- Multiple choice (one of a number of options)
+- Checkbox (all that apply)
+- Date (e.g. DOB)
+- Time (e.g. calendar booking)
+
+Validation?
+
+Styling hints?
+
+Initial value (optional)
+Label (optional)
+Placeholder (optional; only some questions)
+
+```scala
+sealed trait Question[A] {
+    def value: Option[A] // Option because we might not get a valid answer in some cases
+
+    def render: Html =
+        this match {
+            ???
+        }
+}
+final case class IntQuestion() extends Question[Int]
+final case class TextQuestion(initialValue: Option[String], label: Option[String], placeholder: Option[String]) extends Question[String] {
+    def withInitialValue(initialValue: String): TextQuestion =
+        this.copy(initialValue = Some(initialValue))
+
+    def withoutInitialValue: TextQuestion =
+        this.copy(initialValue = None)
+    
+    def withLabel(label: String) TextQuestion =
+        this.copy(label = Some(label))
+}
+object TextQuestion {
+    def apply: TextQuestion =
+        TextQuestion(None, None, None)
+}
+
+TextQuestion.apply.withInitialValue("Hello")
+final case class BooleanQuestion() extends Question[Boolean]
+```
 
 ## Builders
 
